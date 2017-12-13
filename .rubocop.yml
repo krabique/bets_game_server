@@ -1,0 +1,47 @@
+AllCops:
+  TargetRubyVersion: 2.4
+  Exclude:
+    - db/schema.rb
+    - vendor/**/*
+    - spec/**/*
+    - config/**/*
+
+Metrics/AbcSize:
+  Exclude:
+    - db/**/*
+    - app/controllers/bets_controller.rb
+
+Metrics/LineLength:
+  Exclude:
+    - config/initializers/*
+    - db/**/*
+
+Metrics/MethodLength:
+  Max: 10
+  Exclude:
+    - app/models/ability.rb
+    - db/**/*
+
+Metrics/BlockLength:
+  Exclude:
+    - config/**/*
+    - db/**/*
+    - Guardfile
+    - spec/**/*
+
+Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/MixinUsage:
+  Exclude:
+    - bin/**/*
+
+Style/AsciiComments:
+  Enabled: false
+
+Metrics/LineLength:
+  Exclude:
+    - db/seeds.rb
