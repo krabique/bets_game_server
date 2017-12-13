@@ -35,6 +35,8 @@ gem 'popper_js'
 gem 'font-awesome-rails'
 # For money values
 gem 'money-rails', '~>1'
+# For random.org api requests
+gem 'httparty'
 
 
 # Use CoffeeScript for .coffee assets and views

@@ -24,7 +24,7 @@ class BetsController < ApplicationController
   # POST /bets
   # POST /bets.json
   def create
-    multiplier = 2
+    multiplier = get_random_multiplier
     currency = params[:bet][:bet_amount_currency]
     bet_amount = params[:bet][:bet_amount].to_money(currency)
     win_amount = bet_amount * multiplier
@@ -90,6 +90,28 @@ class BetsController < ApplicationController
   end
 
   private
+    def get_random_multiplier
+      require 'httparty'
+
+      random_org_response = HTTParty.post("https://api.random.org/json-rpc/1/invoke", 
+        body: {
+          "jsonrpc" => "2.0",
+          "method" => "generateIntegers",
+          "params" => {
+            "apiKey" => ENV['RANDOM_ORG_API_KEY'],
+            "n" => 1,
+            "min" => 0,
+            "max" => 2,
+            "replacement" => true,
+            "base" => 10
+          },
+          "id" => 24780
+        }.to_json
+      ).body
+
+      return JSON(random_org_response)['result']['random']['data'][0]
+    end
+  
     # Use callbacks to share common setup or constraints between actions.
     def set_bet
       @bet = Bet.find(params[:id])
