@@ -33,6 +33,8 @@ gem 'jquery-rails'
 gem 'popper_js'
 # For icons
 gem 'font-awesome-rails'
+# For money values
+gem 'money-rails', '~>1'
 
 
 # Use CoffeeScript for .coffee assets and views
