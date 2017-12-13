@@ -11,9 +11,9 @@
 
   <tbody>
     <% @accounts.each do |account| %>
-      <tr>
-        <td><%= account.amount %></td>
-        <td><%= account.amount_currency %></td>
+      <tr id="<%= account.amount_currency %>">
+        <td class="amount"><%= account.amount %></td>
+        <td class="currency"><%= account.amount_currency %></td>
         <td><%= link_to 'Show', account %></td>
         <td><%= link_to 'Edit', edit_account_path(account) %></td>
         <td><%= link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' } %></td>

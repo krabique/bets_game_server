@@ -44,22 +44,23 @@ class BetsController < ApplicationController
     complete_params = bet_params.merge(win_params).merge(account_params)
 
     @bet = Bet.new(complete_params)
-
-    if account.amount >= bet_amount.to_money(currency) && !bet_amount.zero?
-      Bet.transaction do
+    Bet.transaction do
+      if account.amount >= bet_amount.to_money(currency) && !bet_amount.zero?
         respond_to do |format|
           if @bet.save
             @bet.account.update!(amount: @bet.account.amount - bet_amount + win_amount)
-            format.html { redirect_to root_path, notice: 'Bet was successfully created.' }
-            format.json { render :show, status: :created, location: @bet }
+            # format.html { redirect_to root_path, notice: 'Bet was successfully created.' }
+            # format.json { render :show, status: :created, location: @bet }
+
+            format.js
           else
-            format.html { render :new }
-            format.json { render json: @bet.errors, status: :unprocessable_entity }
+            # format.html { render :new }
+            # format.json { render json: @bet.errors, status: :unprocessable_entity }
           end
         end
+      else
+        redirect_to root_path, notice: 'Insufficient funds!'
       end
-    else
-      redirect_to root_path, notice: 'Insufficient funds!'
     end
   end
 

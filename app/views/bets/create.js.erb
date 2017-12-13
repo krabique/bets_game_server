@@ -1,0 +1,14 @@
+var accounts = {
+  <% current_user.accounts.each do |account| %>
+    "<%= account.amount_currency.to_s %>": "<%= account.amount.to_s %>",
+  <% end %>
+}
+
+console.log(accounts);
+
+for (let account in accounts) {
+  document.getElementById(`${account}`).firstElementChild.innerHTML = `${accounts[account]}`;
+
+  console.log(account);
+  console.log(accounts[account]);
+}

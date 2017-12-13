@@ -1,4 +1,4 @@
-<%= simple_form_for(@bet) do |f| %>
+<%= simple_form_for(@bet, remote: true) do |f| %>
   <%= f.error_notification %>
 
   <% if @bet.errors.any? %>
@@ -15,7 +15,7 @@
 
   <div class="form-inputs">
     <%= f.input :bet_amount %>
-    <%= f.input :bet_amount_currency, 
+    <%= f.input :bet_amount_currency,
       collection: all_currencies %>
   </div>
 
