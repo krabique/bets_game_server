@@ -1,0 +1,25 @@
+<%= simple_form_for(@bet) do |f| %>
+  <%= f.error_notification %>
+
+  <% if @bet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bet.errors.count, "error") %> prohibited this @bet from being saved:</h2>
+
+      <ul>
+      <% @bet.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-inputs">
+    <%= f.input :bet_amount %>
+    <%= f.input :bet_amount_currency, 
+      collection: all_currencies %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

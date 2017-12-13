@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171213104954) do
+ActiveRecord::Schema.define(version: 20171213124429) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20171213104954) do
   create_table "accounts", force: :cascade do |t|
     t.integer "amount_cents", default: 0, null: false
     t.string "amount_currency", default: "USD", null: false
-    t.bigint "user_id"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_accounts_on_user_id"
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20171213104954) do
     t.string "bet_amount_currency", default: "USD", null: false
     t.integer "win_amount_cents", default: 0, null: false
     t.string "win_amount_currency", default: "USD", null: false
-    t.bigint "account_id"
+    t.bigint "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_bets_on_account_id"
