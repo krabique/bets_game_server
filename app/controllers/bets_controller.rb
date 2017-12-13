@@ -24,7 +24,7 @@ class BetsController < ApplicationController
   # POST /bets
   # POST /bets.json
   def create
-    multiplier = get_random_multiplier
+    multiplier = random_multiplier
     currency = params[:bet][:bet_amount_currency]
     bet_amount = params[:bet][:bet_amount].to_money(currency)
     win_amount = bet_amount * multiplier
@@ -89,7 +89,7 @@ class BetsController < ApplicationController
 
   private
 
-  def get_random_multiplier
+  def random_multiplier
     require 'httparty'
 
     random_org_response = HTTParty.post(
