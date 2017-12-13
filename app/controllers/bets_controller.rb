@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class BetsController < ApplicationController
-  before_action :set_bet, only: [:show, :edit, :update, :destroy]
+  before_action :set_bet, only: %i[show edit update destroy]
 
   # GET /bets
   # GET /bets.json
@@ -9,8 +11,7 @@ class BetsController < ApplicationController
 
   # GET /bets/1
   # GET /bets/1.json
-  def show
-  end
+  def show; end
 
   # GET /bets/new
   def new
@@ -18,8 +19,7 @@ class BetsController < ApplicationController
   end
 
   # GET /bets/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /bets
   # POST /bets.json
@@ -29,22 +29,22 @@ class BetsController < ApplicationController
     bet_amount = params[:bet][:bet_amount].to_money(currency)
     win_amount = bet_amount * multiplier
     account = current_user.accounts.find_by(
-                amount_currency: currency
-              )
-    
+      amount_currency: currency
+    )
+
     win_params = {
       win_amount: win_amount,
       win_amount_currency: currency
     }
-    
+
     account_params = {
       account: account
     }
-    
+
     complete_params = bet_params.merge(win_params).merge(account_params)
-    
+
     @bet = Bet.new(complete_params)
-    
+
     if account.amount >= bet_amount.to_money(currency) && !bet_amount.zero?
       Bet.transaction do
         respond_to do |format|
@@ -56,13 +56,11 @@ class BetsController < ApplicationController
             format.html { render :new }
             format.json { render json: @bet.errors, status: :unprocessable_entity }
           end
-        end      
+        end
       end
     else
       redirect_to root_path, notice: 'Insufficient funds!'
     end
-
-
   end
 
   # PATCH/PUT /bets/1
@@ -90,35 +88,35 @@ class BetsController < ApplicationController
   end
 
   private
-    def get_random_multiplier
-      require 'httparty'
 
-      random_org_response = HTTParty.post("https://api.random.org/json-rpc/1/invoke", 
-        body: {
-          "jsonrpc" => "2.0",
-          "method" => "generateIntegers",
-          "params" => {
-            "apiKey" => ENV['RANDOM_ORG_API_KEY'],
-            "n" => 1,
-            "min" => 0,
-            "max" => 2,
-            "replacement" => true,
-            "base" => 10
-          },
-          "id" => 24780
-        }.to_json
-      ).body
+  def get_random_multiplier
+    require 'httparty'
 
-      return JSON(random_org_response)['result']['random']['data'][0]
-    end
-  
-    # Use callbacks to share common setup or constraints between actions.
-    def set_bet
-      @bet = Bet.find(params[:id])
-    end
+    random_org_response = HTTParty.post('https://api.random.org/json-rpc/1/invoke',
+                                        body: {
+                                          'jsonrpc' => '2.0',
+                                          'method' => 'generateIntegers',
+                                          'params' => {
+                                            'apiKey' => ENV['RANDOM_ORG_API_KEY'],
+                                            'n' => 1,
+                                            'min' => 0,
+                                            'max' => 2,
+                                            'replacement' => true,
+                                            'base' => 10
+                                          },
+                                          'id' => 24_780
+                                        }.to_json).body
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def bet_params
-      params.require(:bet).permit(:bet_amount, :bet_amount_currency)
-    end
+    JSON(random_org_response)['result']['random']['data'][0]
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_bet
+    @bet = Bet.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def bet_params
+    params.require(:bet).permit(:bet_amount, :bet_amount_currency)
+  end
 end
