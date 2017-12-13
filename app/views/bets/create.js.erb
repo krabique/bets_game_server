@@ -1,8 +1,10 @@
+document.getElementsByClassName("flash")[0].innerHTML = '<%= j render partial: "shared/flash" %>';
+
 var accounts = {
   <% current_user.accounts.each do |account| %>
     "<%= account.amount_currency.to_s %>": "<%= account.amount.to_s %>",
   <% end %>
-}
+};
 
 console.log(accounts);
 

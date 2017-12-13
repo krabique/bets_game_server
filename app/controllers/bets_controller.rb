@@ -24,8 +24,10 @@ class BetsController < ApplicationController
   # POST /bets
   # POST /bets.json
   def create
-    multiplier = random_multiplier
     currency = params[:bet][:bet_amount_currency]
+    raise Exceptions::NoCurrencyChosen unless currency
+
+    multiplier = random_multiplier
     bet_amount = params[:bet][:bet_amount].to_money(currency)
     win_amount = bet_amount * multiplier
     account = current_user.accounts.find_by(
@@ -44,24 +46,22 @@ class BetsController < ApplicationController
     complete_params = bet_params.merge(win_params).merge(account_params)
 
     @bet = Bet.new(complete_params)
-    Bet.transaction do
-      if account.amount >= bet_amount.to_money(currency) && !bet_amount.zero?
-        respond_to do |format|
-          if @bet.save
-            @bet.account.update!(amount: @bet.account.amount - bet_amount + win_amount)
-            # format.html { redirect_to root_path, notice: 'Bet was successfully created.' }
-            # format.json { render :show, status: :created, location: @bet }
 
-            format.js
-          else
-            # format.html { render :new }
-            # format.json { render json: @bet.errors, status: :unprocessable_entity }
-          end
-        end
+    Bet.transaction do
+      if bet_amount.zero?
+        @info = "Can't bet zero! Show me what you've got, playa'!"
+      elsif account.amount < bet_amount.to_money(currency)
+        @info = "Insufficient funds. Mah' poor nigga'."
       else
-        redirect_to root_path, notice: 'Insufficient funds!'
+        @bet.account.update!(amount: @bet.account.amount - bet_amount + win_amount)
+        @info = "You've made a bet of #{currency} #{bet_amount} and won #{currency} #{win_amount}!"
       end
     end
+
+    rescue
+      @info = "You have to choose a valid currency!"
+    ensure
+      flash.now[:alert] = @info
   end
 
   # PATCH/PUT /bets/1
