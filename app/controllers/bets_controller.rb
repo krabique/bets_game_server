@@ -90,8 +90,6 @@ class BetsController < ApplicationController
   private
 
   def random_multiplier
-    require 'httparty'
-
     random_org_response = HTTParty.post(
       'https://api.random.org/json-rpc/1/invoke',
       body: {
