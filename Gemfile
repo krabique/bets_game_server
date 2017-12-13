@@ -19,6 +19,22 @@ gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+# For logins
+gem 'devise'
+# For cute notices
+gem 'toastr-rails'
+# For bootstrap
+gem 'bootstrap'
+# For forms
+gem 'simple_form', '~> 3.5'
+# For jquery
+gem 'jquery-rails'
+# For bootstrap exception
+gem 'popper_js'
+# For icons
+gem 'font-awesome-rails'
+
+
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -39,6 +55,21 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  
+  gem 'rubocop'
+  gem 'factory_bot'
+  gem 'guard-rspec'
+  gem 'rails-controller-testing'
+  gem 'rspec-rails'
+  gem 'spring-commands-rspec'
+end
+
+group :test do
+  gem 'database_cleaner'
+  gem 'faker'
+  gem 'shoulda-matchers', require: false
+  gem 'simplecov', require: false
+  gem 'webmock'
 end
 
 group :development do
@@ -52,3 +83,5 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+ruby '2.4.2'
