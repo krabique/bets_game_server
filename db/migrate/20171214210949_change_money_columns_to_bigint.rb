@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeMoneyColumnsToBigint < ActiveRecord::Migration[5.1]
   def change
     change_column :bets, :bet_amount_cents, :integer, limit: 8
