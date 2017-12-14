@@ -2,6 +2,7 @@
 
 class Bet < ApplicationRecord
   belongs_to :account
+  belongs_to :user
 
   monetize :bet_amount_cents
   monetize :win_amount_cents

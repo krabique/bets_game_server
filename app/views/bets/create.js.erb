@@ -1,16 +1,40 @@
+<%# renders current flash %>
 document.getElementsByClassName("flash")[0].innerHTML = '<%= j render partial: "shared/flash" %>';
 
+<%# updates accounts info -- start %>
 var accounts = {
   <% current_user.accounts.each do |account| %>
     "<%= account.amount_currency.to_s %>": "<%= account.amount.to_s %>",
   <% end %>
 };
 
-console.log(accounts);
-
 for (let account in accounts) {
   document.getElementById(`${account}`).firstElementChild.innerHTML = `${accounts[account]}`;
-
-  console.log(account);
-  console.log(accounts[account]);
 }
+<%# updates accounts info -- end %>
+
+<%# updates the last bets table -- start %>
+<% if @bet && @bet.persisted? %>
+  var last_bet = {
+    bet_amount: "<%= @bet.bet_amount.to_s %>",
+    win_amount: "<%= @bet.win_amount.to_s %>",
+    currency:   "<%= @bet.bet_amount_currency.to_s %>",
+    created_at: "<%= @bet.created_at %>"
+  }
+
+  var log_table = document.getElementById("log");
+
+  var log_table_tr = document.createElement("tr");
+  log_table_tr.innerHTML = `
+    <tr>
+      <td class="amount">${last_bet.bet_amount}</td>
+      <td class="amount">${last_bet.win_amount}</td>
+      <td class="currency">${last_bet.currency}</td>
+      <td class="created_at">${last_bet.created_at}</td>
+    </tr>
+  `;
+  log_table.prepend(log_table_tr);
+
+  log_table.deleteRow(log_table.rows.length - 1);
+<% end %>
+<%# updates the last bets table -- end %>

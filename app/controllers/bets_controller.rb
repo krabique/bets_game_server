@@ -21,7 +21,11 @@ class BetsController < ApplicationController
       account: account
     }
 
-    complete_params = bet_params.merge(win_params).merge(account_params)
+    user_params = {
+      user: current_user
+    }
+
+    complete_params = bet_params.merge(win_params).merge(account_params).merge(user_params)
     @bet = Bet.new(complete_params)
 
     Bet.transaction do
@@ -31,9 +35,11 @@ class BetsController < ApplicationController
         @info = "You don't have a #{currency} account."
       elsif account.amount < bet_amount.to_money(currency)
         @info = "Insufficient funds. Mah' poor nigga'."
-      else
+      elsif @bet.save
         @bet.account.update!(amount: @bet.account.amount - bet_amount + win_amount)
         @info = "You've made a bet of #{currency} #{bet_amount} and won #{currency} #{win_amount}!"
+      else
+        @info = "There's been an error. Woops..."
       end
     end
   rescue Money::Currency::UnknownCurrency

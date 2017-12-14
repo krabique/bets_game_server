@@ -2,6 +2,7 @@
 
 class Account < ApplicationRecord
   belongs_to :user
+  has_many :bets
 
   monetize :amount_cents
   validates :amount_currency, presence: true, inclusion:

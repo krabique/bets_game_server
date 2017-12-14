@@ -7,4 +7,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :accounts
+  has_many :bets
 end
