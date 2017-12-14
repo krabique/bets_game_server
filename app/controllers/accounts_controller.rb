@@ -14,7 +14,10 @@ class AccountsController < ApplicationController
   def create
     @account = Account.new(account_params.merge(user: current_user))
 
-    if @account.save
+    if current_user.accounts.find_by(amount_currency: params[:account][:amount_currency])
+      flash.now[:alert] = "You already have a #{@account.amount_currency} account! Please choose a different currency."
+      render :new
+    elsif @account.save
       redirect_to root_path, notice: 'Account was successfully created.'
     else
       render :new
