@@ -36,15 +36,11 @@ class AccountsController < ApplicationController
     @edit_action = true
   end
 
-  def currency_params
-    [:amount_currency]
-  end
-
   def account_params
-    p = %i[amount]
+    params_to_permit = %i[amount]
 
-    p << :amount_currency unless @edit_action
+    params_to_permit << :amount_currency unless @edit_action
 
-    params.require(:account).permit(p)
+    params.require(:account).permit(params_to_permit)
   end
 end
