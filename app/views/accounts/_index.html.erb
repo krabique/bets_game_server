@@ -1,11 +1,12 @@
 <h2>Your accounts</h2>
 
-<table>
+<table class="table">
   <tbody>
     <% @accounts.each do |account| %>
       <tr id="<%= account.amount_currency %>">
         <td class="amount"><%= account.amount %></td>
         <td class="currency"><%= account.amount_currency %></td>
+        <td><%= link_to 'Deposit/Withdraw', edit_account_path(account) %></td>
       </tr>
     <% end %>
   </tbody>
