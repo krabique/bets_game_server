@@ -22,12 +22,13 @@ class BetsController < ApplicationController
     }
 
     complete_params = bet_params.merge(win_params).merge(account_params)
-
     @bet = Bet.new(complete_params)
 
     Bet.transaction do
       if bet_amount.zero?
         @info = "Can't bet zero! Show me what you've got, playa'!"
+      elsif !account
+        @info = "You don't have a #{currency} account."
       elsif account.amount < bet_amount.to_money(currency)
         @info = "Insufficient funds. Mah' poor nigga'."
       else
