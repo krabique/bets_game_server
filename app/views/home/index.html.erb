@@ -1,36 +1,27 @@
-<div class="card">
-  <div class="card-body">
-    <%= render 'accounts/index' %>
+
+
+<div class="row">
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <%= render 'bets/form', remote: true %>
+      </div>
+    </div>
   </div>
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <%= render 'accounts/index' %>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <div class="card">
   <div class="card-body">
-    <%= render 'bets/form', remote: true %>
-  </div>
-</div>
-
-
-<div class="card">
-  <div class="card-body">
-    <h3>Your last 5 bets</h3>
-    <table class="table">
-      <thead>
-        <th>Bet</th>
-        <th>Win</th>
-        <th>Currency</th>
-        <th>Time</th>
-      </thead>
-      <tbody id="log">
-        <% @bets_log.each do |bet| %>
-          <tr>
-            <td class="amount"><%= bet.bet_amount %></td>
-            <td class="amount"><%= bet.win_amount %></td>
-            <td class="currency"><%= bet.bet_amount_currency %></td>
-            <td class="created_at"><%= bet.created_at %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <%= render 'bets/last_bets' %>
   </div>
 </div>
