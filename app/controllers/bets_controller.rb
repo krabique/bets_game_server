@@ -35,11 +35,10 @@ class BetsController < ApplicationController
         @info = "You've made a bet of #{currency} #{bet_amount} and won #{currency} #{win_amount}!"
       end
     end
-
-    rescue Money::Currency::UnknownCurrency
-      @info = "You have to choose a valid currency!"
-    ensure
-      flash.now[:alert] = @info
+  rescue Money::Currency::UnknownCurrency
+    @info = 'You have to choose a valid currency!'
+  ensure
+    flash.now[:alert] = @info
   end
 
   private
