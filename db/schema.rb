@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171214183737) do
+ActiveRecord::Schema.define(version: 20171214210949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "accounts", force: :cascade do |t|
-    t.integer "amount_cents", default: 0, null: false
+    t.bigint "amount_cents", default: 0, null: false
     t.string "amount_currency", default: "USD", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
@@ -25,9 +25,9 @@ ActiveRecord::Schema.define(version: 20171214183737) do
   end
 
   create_table "bets", force: :cascade do |t|
-    t.integer "bet_amount_cents", default: 0, null: false
+    t.bigint "bet_amount_cents", default: 0, null: false
     t.string "bet_amount_currency", default: "USD", null: false
-    t.integer "win_amount_cents", default: 0, null: false
+    t.bigint "win_amount_cents", default: 0, null: false
     t.string "win_amount_currency", default: "USD", null: false
     t.bigint "account_id", null: false
     t.datetime "created_at", null: false
