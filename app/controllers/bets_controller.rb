@@ -3,7 +3,7 @@
 class BetsController < ApplicationController
   def create
     currency = params[:bet][:bet_amount_currency]
-    raise Exceptions::NoCurrencyChosen unless currency
+    raise Money::Currency::UnknownCurrency if currency.empty?
 
     multiplier = random_multiplier
     bet_amount = params[:bet][:bet_amount].to_money(currency)
@@ -36,7 +36,7 @@ class BetsController < ApplicationController
       end
     end
 
-    rescue
+    rescue Money::Currency::UnknownCurrency
       @info = "You have to choose a valid currency!"
     ensure
       flash.now[:alert] = @info
