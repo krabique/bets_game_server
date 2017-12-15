@@ -1,60 +1,26 @@
 # frozen_string_literal: true
 
 class BetsController < ApplicationController
+  include CommonHelpers
+
   def create
-    currency = params[:bet][:bet_amount_currency]
-    raise Money::Currency::UnknownCurrency if currency.empty?
-
-    multiplier = random_multiplier
-    bet_amount = params[:bet][:bet_amount].to_money(currency)
-    win_amount = bet_amount * multiplier
-    account = current_user.accounts.find_by(
-      amount_currency: currency
-    )
-
-    win_params = {
-      win_amount: win_amount,
-      win_amount_currency: currency
-    }
-
-    account_params = {
-      account: account
-    }
-
-    user_params = {
-      user: current_user
-    }
-
-
-    bank = MoneyRails.default_bank
-    exchange_rates_cache = "#{Rails.root}/tmp/exchange_rates.xml"
-    if !bank.rates_updated_at || bank.rates_updated_at < Time.now - 1.days
-      bank.save_rates(exchange_rates_cache)
-      bank.update_rates(exchange_rates_cache)
-    end
-
-    win_eur_params = {
-      win_amount_eur: bank.exchange(win_amount, currency, 'EUR'),
-      win_amount_eur_currency: 'EUR'
-    }
-
-    complete_params = bet_params.merge(win_params).merge(account_params).merge(user_params).merge(win_eur_params)
-    @bet = Bet.new(complete_params)
+    calculate_bet
 
     Bet.transaction do
-      if bet_amount.zero?
+      if !@account
+        @info = "You don't have a #{@currency} account."
+      elsif @bet_amount.zero?
         @info = "Can't bet zero! Show me what you've got, playa'!"
-      elsif !account
-        @info = "You don't have a #{currency} account."
-      elsif account.amount < bet_amount.to_money(currency)
+      elsif @account.amount < @bet_amount.to_money(@currency)
         @info = "Insufficient funds. Mah' poor nigga'."
       elsif @bet.save
-        @bet.account.update!(amount: @bet.account.amount - bet_amount + win_amount)
-        @info = "You've made a bet of #{currency} #{bet_amount} and won #{currency} #{win_amount}!"
+        @bet.account.update!(amount: @bet.account.amount - @bet_amount + @win_amount)
+        @info = "You've made a bet of #{@currency} #{@bet_amount} and won #{@currency} #{@win_amount}!"
       else
         @info = "There's been an error. Woops..."
       end
     end
+
   rescue Money::Currency::UnknownCurrency
     @info = 'You have to choose a valid currency!'
   ensure
@@ -62,6 +28,20 @@ class BetsController < ApplicationController
   end
 
   private
+
+  def calculate_bet
+    @currency = params[:bet][:bet_amount_currency]
+    raise Money::Currency::UnknownCurrency if @currency.empty?
+
+    @multiplier = random_multiplier
+    @bet_amount = params[:bet][:bet_amount].to_money(@currency)
+    @win_amount = @bet_amount * @multiplier
+    @account = current_user.accounts.find_by(
+      amount_currency: @currency
+    )
+
+    @bet = Bet.new(complete_params)
+  end
 
   def random_multiplier
     random_org_response = HTTParty.post(
@@ -84,7 +64,46 @@ class BetsController < ApplicationController
     JSON(random_org_response.body)['result']['random']['data'][0]
   end
 
-  def bet_params
+  def bet_base_params
     params.require(:bet).permit(:bet_amount, :bet_amount_currency)
+  end
+
+  def win_params
+    {
+      win_amount: @win_amount,
+      win_amount_currency: @currency
+    }
+  end
+
+  def account_params
+    {
+      account: @account
+    }
+  end
+
+  def user_params
+    {
+      user: current_user
+    }
+  end
+
+  def check_bank_updates
+    if !bank.rates_updated_at || bank.rates_updated_at < Time.now - 1.days
+      bank.save_rates(exchange_rates_cache)
+      bank.update_rates(exchange_rates_cache)
+    end
+  end
+
+  def win_eur_params
+    check_bank_updates
+    {
+      win_amount_eur: bank.exchange(@win_amount, @currency, 'EUR'),
+      win_amount_eur_currency: 'EUR'
+    }
+  end
+
+  def complete_params
+    bet_calculated_params = { **win_params, **account_params, **user_params, **win_eur_params }
+    bet_base_params.merge(bet_calculated_params)
   end
 end
