@@ -16,15 +16,13 @@ class BetsController < ApplicationController
 
   def process_bet
     validate_bet
-    Bet.transaction do
-      unless @info
-        if @bet.save
-          update_account
-        else
-          @info = "There's been an error. Woops..."
-        end
+    unless @info
+      Bet.transaction do
+        commit_bet
       end
     end
+  rescue ActiveRecord::RecordInvalid
+    @info = "There's been an error. Woops..."
   end
 
   def validate_bet
@@ -37,7 +35,8 @@ class BetsController < ApplicationController
     end
   end
 
-  def update_account
+  def commit_bet
+    @bet.save!
     @bet.account.update!(amount: @bet.account.amount - @bet_amount +
       @win_amount)
     @info = "You've made a bet of #{@currency} #{@bet_amount} and won " \
