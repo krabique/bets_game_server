@@ -35,8 +35,8 @@ class BetsController < ApplicationController
       "Can't bet zero! Show me what you've got, playa'!"
     elsif @account.amount < @bet_amount.to_money(@currency)
       "Insufficient funds. Mah' poor nigga'."
-    elsif random_multiplier(500) == 0
-      "You are banned! You cheater, you!"
+    elsif random_multiplier(500).zero?
+      'You are banned! You cheater, you!'
     end
   end
 
