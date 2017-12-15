@@ -15,8 +15,8 @@ class BetsController < ApplicationController
   private
 
   def process_bet
+    validate_bet
     Bet.transaction do
-      validate_bet
       unless @info
         if @bet.save
           update_account
