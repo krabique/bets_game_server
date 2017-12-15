@@ -8,6 +8,7 @@ class BetsController < ApplicationController
   rescue Money::Currency::UnknownCurrency
     @info = 'You have to choose a valid currency!'
   ensure
+    @top_wins = Bet.order('win_amount_eur_cents DESC').limit(5).includes(:user)
     flash.now[:alert] = @info
   end
 

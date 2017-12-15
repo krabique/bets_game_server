@@ -44,3 +44,11 @@ for (let account in accounts) {
   }
 <% end %>
 <%# updates the last bets table -- end %>
+
+<%# updates the top chart table -- start %>
+var old_top_bets_elememt = document.getElementById("top_bets");
+var new_top_bets_elememt = document.createElement("div");
+new_top_bets_elememt.id = "top_bets";
+new_top_bets_elememt.innerHTML = '<%= j render partial: "bets/top_bets" %>';
+old_top_bets_elememt.parentNode.replaceChild(new_top_bets_elememt, old_top_bets_elememt);
+<%# updates the top chart table -- end %>
