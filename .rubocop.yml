@@ -10,6 +10,8 @@ Metrics/AbcSize:
   Exclude:
     - db/**/*
     - app/controllers/bets_controller.rb
+    - lib/bet_params.rb
+    - app/controllers/accounts_controller.rb
 
 Metrics/LineLength:
   Exclude:
@@ -45,3 +47,7 @@ Style/AsciiComments:
 Metrics/LineLength:
   Exclude:
     - db/seeds.rb
+
+Layout/AlignHash:
+  Exclude:
+    - lib/bet_params.rb
