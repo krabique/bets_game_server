@@ -35,9 +35,11 @@ gem 'popper_js'
 # For icons
 gem 'font-awesome-rails'
 # For money values
-gem 'money-rails', '~>1'
+gem 'money-rails', '~> 1.9'
 # For random.org api requests
 gem 'httparty'
+# For ECB currency exchange rates
+gem 'eu_central_bank', '~> 1.1', '>= 1.1.3'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'

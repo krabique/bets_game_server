@@ -25,7 +25,20 @@ class BetsController < ApplicationController
       user: current_user
     }
 
-    complete_params = bet_params.merge(win_params).merge(account_params).merge(user_params)
+
+    bank = MoneyRails.default_bank
+    exchange_rates_cache = "#{Rails.root}/tmp/exchange_rates.xml"
+    if !bank.rates_updated_at || bank.rates_updated_at < Time.now - 1.days
+      bank.save_rates(exchange_rates_cache)
+      bank.update_rates(exchange_rates_cache)
+    end
+
+    win_eur_params = {
+      win_amount_eur: bank.exchange(win_amount, currency, 'EUR'),
+      win_amount_eur_currency: 'EUR'
+    }
+
+    complete_params = bet_params.merge(win_params).merge(account_params).merge(user_params).merge(win_eur_params)
     @bet = Bet.new(complete_params)
 
     Bet.transaction do

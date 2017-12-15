@@ -10,6 +10,8 @@ MoneyRails.configure do |config|
   #
   # Example:
   # config.default_bank = EuCentralBank.new
+  config.default_bank = EuCentralBank.new
+
 
   # Add exchange rates to current money bank object.
   # (The conversion rate refers to one direction only)
@@ -17,6 +19,10 @@ MoneyRails.configure do |config|
   # Example:
   # config.add_rate "USD", "CAD", 1.24515
   # config.add_rate "CAD", "USD", 0.803115
+
+  # exchange_rates_cache = "#{Rails.root}/tmp/exchange_rates.xml"
+  # config.default_bank.save_rates(exchange_rates_cache)
+  # config.default_bank.update_rates(exchange_rates_cache)
 
   # To handle the inclusion of validations for monetized fields
   # The default value is true

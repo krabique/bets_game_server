@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171214210949) do
+ActiveRecord::Schema.define(version: 20171214225039) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(version: 20171214210949) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.bigint "win_amount_eur_cents", default: 0, null: false
+    t.string "win_amount_eur_currency", default: "EUR", null: false
     t.index ["account_id"], name: "index_bets_on_account_id"
     t.index ["user_id"], name: "index_bets_on_user_id"
   end

@@ -35,6 +35,9 @@ for (let account in accounts) {
   `;
   log_table.prepend(log_table_tr);
 
-  log_table.deleteRow(log_table.rows.length - 1);
+  log_table_length = log_table.rows.length;
+  if (log_table_length > 5) {
+    log_table.deleteRow(log_table_length - 1);
+  }
 <% end %>
 <%# updates the last bets table -- end %>
