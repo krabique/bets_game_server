@@ -28,6 +28,8 @@ class BetsController < ApplicationController
     @info = "There's been an error. Woops..."
   end
 
+
+  # This is where all the validations go
   def validate_bet_with_error_message
     if !@account
       "You don't have a #{@currency} account."
@@ -37,7 +39,33 @@ class BetsController < ApplicationController
       "Insufficient funds. Mah' poor nigga'."
     elsif random_multiplier(500).zero?
       'You are banned! You cheater, you!'
+    elsif maximum_bet_eur < bank.exchange(@bet_amount, @currency, 'EUR')
+      "Your bet exceeds the maximum bet of #{@currency} " \
+        "#{bank.exchange(@max_bet, 'EUR', @currency)} " \
+        "(#{@max_bet.currency} #{@max_bet})"
     end
+  end
+
+  def maximum_bet_eur
+    last_days_lost_bets = Bet.where(multiplier: 0, created_at:
+      (Time.now - 24.hours)..Time.now)
+    last_days_won_bets = Bet.where(multiplier: 2, created_at:
+      (Time.now - 24.hours)..Time.now)
+
+    income = Money.new(0, 'EUR')
+    outlays = Money.new(0, 'EUR')
+
+    last_days_lost_bets.each do |bet|
+      income += bank.exchange(bet.bet_amount, bet.bet_amount_currency, 'EUR')
+    end
+
+    last_days_won_bets.each do |bet|
+      outlays += bank.exchange(bet.bet_amount, bet.bet_amount_currency, 'EUR')
+    end
+
+    profit = income - outlays
+    min_bet = Money.new(100, 'EUR')
+    @max_bet = (profit / 2) + min_bet
   end
 
   def commit_bet

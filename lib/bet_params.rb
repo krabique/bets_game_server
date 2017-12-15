@@ -10,7 +10,8 @@ module BetParams
   def win_params
     {
       win_amount: @win_amount,
-      win_amount_currency: @currency
+      win_amount_currency: @currency,
+      multiplier: @multiplier
     }
   end
 
