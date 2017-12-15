@@ -1,6 +1,9 @@
 <%# renders current flash %>
 document.getElementsByClassName("flash")[0].innerHTML = '<%= j render partial: "shared/flash" %>';
 
+<%# sets bet amount input field to zero %>
+document.getElementById("bet_bet_amount").value = "0.00"
+
 <%# updates accounts info -- start %>
 var accounts = {
   <% current_user.accounts.each do |account| %>
