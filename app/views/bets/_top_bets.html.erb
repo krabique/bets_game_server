@@ -2,20 +2,22 @@
   <h3>Top Wins!</h3>
   <table class="table">
     <thead>
+      <th>#</th>
+      <th>Win (EUR)</th>
       <th>Bet</th>
       <th>Win</th>
       <th>Currency</th>
-      <th>Win (EUR)</th>
       <th>Time</th>
       <th>Player</th>
     </thead>
     <tbody id="top_wins">
-      <% @top_wins.each do |win| %>
+      <% @top_wins.each_with_index do |win, index| %>
         <tr>
+          <td class="top_position"><%= index + 1 %></td>
+          <td class="amount"><%= win.win_amount_eur %></td>
           <td class="amount"><%= win.bet_amount %></td>
           <td class="amount"><%= win.win_amount %></td>
           <td class="currency"><%= win.bet_amount_currency %></td>
-          <td class="amount"><%= win.win_amount_eur %></td>
           <td class="created_at"><%= win.created_at %></td>
           <td class="created_at"><%= win.user.email %></td>
         </tr>
