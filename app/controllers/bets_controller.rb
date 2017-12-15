@@ -15,27 +15,25 @@ class BetsController < ApplicationController
 
   def process_bet
     calculate_bet
-    validate_bet
-    save_bet
+    @info = validate_bet_with_error_message
+    save_bet unless @info
   end
 
   def save_bet
-    unless @info
-      Bet.transaction do
-        commit_bet
-      end
+    Bet.transaction do
+      commit_bet
     end
   rescue ActiveRecord::RecordInvalid
     @info = "There's been an error. Woops..."
   end
 
-  def validate_bet
+  def validate_bet_with_error_message
     if !@account
-      @info = "You don't have a #{@currency} account."
+      "You don't have a #{@currency} account."
     elsif @bet_amount.zero?
-      @info = "Can't bet zero! Show me what you've got, playa'!"
+      "Can't bet zero! Show me what you've got, playa'!"
     elsif @account.amount < @bet_amount.to_money(@currency)
-      @info = "Insufficient funds. Mah' poor nigga'."
+      "Insufficient funds. Mah' poor nigga'."
     end
   end
 
