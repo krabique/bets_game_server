@@ -19,6 +19,7 @@ MoneyRails.configure do |config|
   # Example:
   # config.add_rate "USD", "CAD", 1.24515
   # config.add_rate "CAD", "USD", 0.803115
+  RecurrentUpdateExchangeRateJob.perform_later
 
   # exchange_rates_cache = "#{Rails.root}/tmp/exchange_rates.xml"
   # config.default_bank.save_rates(exchange_rates_cache)

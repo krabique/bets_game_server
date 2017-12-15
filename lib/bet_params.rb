@@ -26,15 +26,7 @@ module BetParams
     }
   end
 
-  def check_bank_updates
-    return unless !bank.rates_updated_at ||
-                  bank.rates_updated_at < Time.now - 1.days
-    bank.save_rates(exchange_rates_cache)
-    bank.update_rates(exchange_rates_cache)
-  end
-
   def win_eur_params
-    check_bank_updates
     {
       win_amount_eur: bank.exchange(@win_amount, @currency, 'EUR'),
       win_amount_eur_currency: 'EUR'
