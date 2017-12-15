@@ -21,10 +21,6 @@ MoneyRails.configure do |config|
   # config.add_rate "CAD", "USD", 0.803115
   RecurrentUpdateExchangeRateJob.perform_later
 
-  # exchange_rates_cache = "#{Rails.root}/tmp/exchange_rates.xml"
-  # config.default_bank.save_rates(exchange_rates_cache)
-  # config.default_bank.update_rates(exchange_rates_cache)
-
   # To handle the inclusion of validations for monetized fields
   # The default value is true
   #
