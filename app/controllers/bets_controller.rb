@@ -4,7 +4,6 @@ class BetsController < ApplicationController
   include CommonHelpers
 
   def create
-    calculate_bet
     process_bet
   rescue Money::Currency::UnknownCurrency
     @info = 'You have to choose a valid currency!'
@@ -15,7 +14,12 @@ class BetsController < ApplicationController
   private
 
   def process_bet
+    calculate_bet
     validate_bet
+    save_bet
+  end
+
+  def save_bet
     unless @info
       Bet.transaction do
         commit_bet
