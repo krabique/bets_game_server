@@ -12,6 +12,7 @@ Metrics/AbcSize:
     - app/controllers/bets_controller.rb
     - lib/bet_params.rb
     - app/controllers/accounts_controller.rb
+    - lib/maximum_bet.rb
 
 Metrics/LineLength:
   Exclude:

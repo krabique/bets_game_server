@@ -6,7 +6,7 @@ document.getElementById("bet_bet_amount").value = "0.00"
 
 <%# updates accounts info -- start %>
 var accounts = {
-  <% current_user.accounts.each do |account| %>
+  <% @accounts.each do |account| %>
     "<%= account.amount_currency.to_s %>": "<%= account.amount.to_s %>",
   <% end %>
 };

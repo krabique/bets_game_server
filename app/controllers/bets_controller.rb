@@ -2,20 +2,30 @@
 
 class BetsController < ApplicationController
   include CommonHelpers
+  include BetParams
+  include MaximumBet
 
   def create
     process_bet
-  rescue Money::Currency::UnknownCurrency
-    @info = 'You have to choose a valid currency!'
-  ensure
+    set_info_flash
+
+    @accounts = current_user.accounts
     @top_wins = Bet.order('win_amount_eur_cents DESC').limit(5).includes(:user)
-    flash.now[:alert] = @info
   end
 
   private
 
+  def set_info_flash
+    if @info.is_a?(Array) && @info[0] == 'alert'
+      flash.now[:alert] = @info[1]
+    else
+      flash.now[:notice] = @info
+    end
+  end
+
   def process_bet
-    calculate_bet
+    return unless calculate_bet
+
     @info = validate_bet_with_error_message
     save_bet unless @info
   end
@@ -25,48 +35,34 @@ class BetsController < ApplicationController
       commit_bet
     end
   rescue ActiveRecord::RecordInvalid
-    @info = "There's been an error. Woops..."
+    @info = ['alert', "There's been an error. Woops..."]
   end
 
-
+  # rubocop:disable Metrics/MethodLength
+  #
+  # Disabling MethodLength for the method as suggested in this discussion
+  # https://github.com/bbatsov/rubocop/issues/494#issuecomment-339860349
+  #
   # This is where all the validations go
   def validate_bet_with_error_message
-    if !@account
-      "You don't have a #{@currency} account."
-    elsif @bet_amount.zero?
-      "Can't bet zero! Show me what you've got, playa'!"
-    elsif @account.amount < @bet_amount.to_money(@currency)
-      "Insufficient funds. Mah' poor nigga'."
-    elsif random_multiplier(500).zero?
-      'You are banned! You cheater, you!'
-    elsif maximum_bet_eur < bank.exchange(@bet_amount, @currency, 'EUR')
-      "Your bet exceeds the maximum bet of #{@currency} " \
-        "#{bank.exchange(@max_bet, 'EUR', @currency)} " \
-        "(#{@max_bet.currency} #{@max_bet})"
-    end
+    info =
+      if !@account
+        "You don't have a #{@currency} account."
+      elsif @bet_amount.zero?
+        "Can't bet zero! Show me what you've got, playa'!"
+      elsif @account.amount < @bet_amount.to_money(@currency)
+        "Insufficient funds. Mah' poor nigga'."
+      elsif random_multiplier(500).zero?
+        'You are banned! You cheater, you!'
+      elsif maximum_bet_eur < bank.exchange(@bet_amount, @currency, 'EUR')
+        "Your bet exceeds the maximum bet of #{@currency} " \
+          "#{bank.exchange(@max_bet, 'EUR', @currency)} " \
+          "(#{@max_bet.currency} #{@max_bet})"
+      end
+
+    info&.scan(/^.*$/)&.unshift('alert')
   end
-
-  def maximum_bet_eur
-    last_days_lost_bets = Bet.where(multiplier: 0, created_at:
-      (Time.now - 24.hours)..Time.now)
-    last_days_won_bets = Bet.where(multiplier: 2, created_at:
-      (Time.now - 24.hours)..Time.now)
-
-    income = Money.new(0, 'EUR')
-    outlays = Money.new(0, 'EUR')
-
-    last_days_lost_bets.each do |bet|
-      income += bank.exchange(bet.bet_amount, bet.bet_amount_currency, 'EUR')
-    end
-
-    last_days_won_bets.each do |bet|
-      outlays += bank.exchange(bet.bet_amount, bet.bet_amount_currency, 'EUR')
-    end
-
-    profit = income - outlays
-    min_bet = Money.new(100, 'EUR')
-    @max_bet = (profit / 2) + min_bet
-  end
+  # rubocop:enable Metrics/MethodLength
 
   def commit_bet
     @bet.save!
@@ -83,11 +79,12 @@ class BetsController < ApplicationController
     @multiplier = random_multiplier
     @bet_amount = params[:bet][:bet_amount].to_money(@currency)
     @win_amount = @bet_amount * @multiplier
-    @account = current_user.accounts.find_by(
-      amount_currency: @currency
-    )
+    @account = current_user.accounts.find_by(amount_currency: @currency)
 
     @bet = Bet.new(complete_params)
+  rescue Money::Currency::UnknownCurrency
+    @info = ['alert', 'You have to choose a valid currency!']
+    false
   end
 
   def random_multiplier(max_value = 2)
@@ -118,6 +115,4 @@ class BetsController < ApplicationController
       'base' => 10
     }
   end
-
-  include BetParams
 end

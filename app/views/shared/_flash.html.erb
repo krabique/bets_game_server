@@ -1,9 +1,19 @@
 <% unless flash.empty? %>
   <div class="container">
     <% flash.each do |f| %>
-      <div class="alert alert-primary" role="alert">
-        <%= f[1] %>
-      </div>
+      <% if f[0] == 'notice' %>
+        <div class="alert alert-primary" role="alert">
+          <%= f[1] %>
+        </div>
+      <% elsif f[0] == 'alert' %>
+        <div class="alert alert-danger" role="alert">
+          <%= f[1] %>
+        </div>
+      <% else %>
+        <div class="alert alert-secondary" role="alert">
+          <%= f[1] %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 <% end %>
