@@ -6,10 +6,11 @@
       <tr id="<%= account.amount_currency %>">
         <td class="amount"><%= account.amount %></td>
         <td class="currency"><%= account.amount_currency %></td>
-        <td><%= link_to 'Deposit/Withdraw', edit_account_path(account) %></td>
+        <td><%= link_to (fa_icon "credit-card", text: 'Deposit / Withdraw'), edit_account_path(account) %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'Create a new account', new_account_path %>
+<%= link_to (fa_icon "plus-circle", text: 'Create a new account'),
+  new_account_path %>
