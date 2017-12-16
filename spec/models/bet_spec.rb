@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Bet, type: :model do
+  include CommonHelpers
+
   context 'associations' do
     it { should belong_to(:account) }
     it { should belong_to(:user) }
@@ -22,7 +24,7 @@ RSpec.describe Bet, type: :model do
     it { should validate_presence_of :bet_amount_currency }
     it {
       should validate_inclusion_of(:bet_amount_currency)
-        .in_array(%w[USD EUR])
+        .in_array(all_currencies)
     }
 
     it { should validate_presence_of :win_amount_currency }
