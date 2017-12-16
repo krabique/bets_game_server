@@ -7,4 +7,6 @@ class Account < ApplicationRecord
   monetize :amount_cents
   validates :amount_currency, presence: true, inclusion:
     { in: all_currencies }
+
+  validates :user, presence: true
 end
