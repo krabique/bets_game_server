@@ -1,10 +1,8 @@
 <% unless flash.empty? %>
   <div class="container">
     <% flash.each do |f| %>
-      <div class="card">
-        <div class="card-body">
-          <%= f[1] %>
-        </div>
+      <div class="alert alert-primary" role="alert">
+        <%= f[1] %>
       </div>
     <% end %>
   </div>
