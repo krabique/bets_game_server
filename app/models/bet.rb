@@ -10,4 +10,11 @@ class Bet < ApplicationRecord
 
   validates :bet_amount_currency, presence: true, inclusion:
     { in: all_currencies }
+  validates :win_amount_currency, presence: true
+  validates :win_amount_eur_currency, presence: true, inclusion: { in: ['EUR'] }
+
+  validates :account, presence: true
+  validates :user, presence: true
+
+  validates :multiplier, presence: true, inclusion: { in: [0, 1, 2] }
 end

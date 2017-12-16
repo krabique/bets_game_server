@@ -74,7 +74,7 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'faker'
-  gem 'shoulda-matchers', require: false
+  gem 'shoulda-matchers'
   gem 'simplecov', require: false
   gem 'webmock'
 end
