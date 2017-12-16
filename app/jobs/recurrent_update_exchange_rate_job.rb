@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class RecurrentUpdateExchangeRateJob < ApplicationJob
-  include CommonHelpers
+  include MoneyHelpers
 
   queue_as :default
 

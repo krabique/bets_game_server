@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Account, type: :model do
-  include CommonHelpers
+  include MoneyHelpers
 
   context 'associations' do
     it { should belong_to(:user) }

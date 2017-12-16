@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module CommonHelpers
+module MoneyHelpers
   private
 
   def all_currencies
