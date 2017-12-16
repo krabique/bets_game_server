@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  resources :accounts
-  resources :bets
+  resources :accounts, only: [:new, :edit, :create, :update]
+  post 'bets', to: 'bets#create'
+
   root to: "home#index"
 
   devise_for :users, controllers: {
@@ -8,6 +9,6 @@ Rails.application.routes.draw do
     passwords: 'users/passwords',
     registrations: 'users/registrations'
   }
-  
+
   get 'home/index'
 end
