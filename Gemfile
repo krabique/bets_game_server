@@ -64,7 +64,7 @@ group :development, :test do
   gem 'selenium-webdriver'
 
   gem 'factory_bot'
-  gem 'guard-rspec'
+  gem 'guard-rspec', require: false
   gem 'rails-controller-testing'
   gem 'rspec-rails'
   gem 'rubocop'
