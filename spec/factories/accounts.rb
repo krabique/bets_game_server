@@ -13,5 +13,10 @@ FactoryBot.define do
     factory :usd_account do
       amount_currency   'USD'
     end
+
+    factory :invalid_account do
+      amount            'asdf'
+      amount_currency   'ABC'
+    end
   end
 end
