@@ -1,0 +1,26 @@
+env:
+  global:
+  - CC_TEST_REPORTER_ID=9eb3bf745e030d13333cf81451d34a8f48ce2be356bc8dd7e8e11a3442030d09
+language: ruby
+rvm:
+  - 2.4.2
+services:
+  - postgresql
+before_script:
+  - psql -c "create database game_server_test;" -U postgres
+  - bundle exec rake db:migrate
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - "./cc-test-reporter before-build"
+script:
+  - bundle exec rake spec
+  - bundle exec rubocop
+after_script:
+  - "./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT"
+deploy:
+  provider: heroku
+  api_key:
+    secure: FBWMhrAqmaJ2dAPU6uMJGdlBtQA3p5dXlj3XcfrEUnbzdAzibAy5yr/Q2AzRfRzF04VIZj87wKHQXwm6UuI9XG3qAeFOUaTjp6kZDanJbWs3OCkZ+apakRn5kl6dbUsQNaN49rNgKMudXWj3C9Ho+ZOHtGhcGYmJfmHgRC6SFsQCj4EBhEcFK2JlwCW2umK3axL4SZUal2DpcLqtlVxVGOCckrDzuyJyn6cXEy/yYWOcqr5UOSJMFKwc7o33ihgcW1LPs+3tFqJatpuAjE9Pzijof2Q5o//EpHlY/rCls257ikKVhkcoF+qHGKZy5MUf4hPqUfIneFgfLcpM6FIjMjsqRWoR2hU/hxLiJ6/1eYT1kHLi4xJMkxLFSP5tq2bIxD4OXv5VU4s0Yp0Ygt55UD69i3tLZqjNlOh6XRyiltgCcmlmWPQdQ9ppbanqMfusKQ7hNovEco6TS1GnXuF7JQWCljMzaFuyGSW2NV4GRmzp1Ua6ekZtlhxffwqLDTgk6M1vf6U9CWZFWcGLqQz/DPk0IZzBGhS8AiK1Skrj2zP8Rl+OuJ+s9AxZr4hYJ49BsKMJEpjFHU5MOs8sH+xm9Nkd7zzoA0C//TrsbcQWWEKyxZOGagTcltP7l314rWo4c2hVABnazLVdNE0kZbWoeXbMEaz4I7oFmEy81QMdy68=
+  app: polar-dawn-15904
+  on: master
+  run: "rake db:migrate"
