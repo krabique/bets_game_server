@@ -3,7 +3,6 @@ AllCops:
   Exclude:
     - db/schema.rb
     - vendor/**/*
-    - spec/**/*
     - config/**/*
 
 Metrics/AbcSize:
@@ -52,3 +51,7 @@ Metrics/LineLength:
 Layout/AlignHash:
   Exclude:
     - lib/bet_params.rb
+
+Layout/EmptyLinesAroundArguments:
+  Exclude:
+    - spec/features/sign_up_and_log_in_spec.rb

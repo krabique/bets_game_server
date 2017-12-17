@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe AccountsController, type: :controller do
@@ -59,8 +61,8 @@ RSpec.describe AccountsController, type: :controller do
         create(:account, amount_currency: currency, user: user)
 
         expect do
-          post :create, params: { account: attributes_for(:account,
-            amount_currency: currency) }
+          post :create, params:
+            { account: attributes_for(:account, amount_currency: currency) }
         end.to_not change(Account, :count)
       end
 
@@ -69,8 +71,8 @@ RSpec.describe AccountsController, type: :controller do
 
         create(:account, amount_currency: currency, user: user)
 
-        post :create, params: { account: attributes_for(:account,
-          amount_currency: currency) }
+        post :create, params:
+          { account: attributes_for(:account, amount_currency: currency) }
 
         expect(response).to render_template :new
         expect(flash[:alert]).to eq "You already have a #{currency} acc!"
@@ -123,7 +125,7 @@ RSpec.describe AccountsController, type: :controller do
           initial_amount_currency = account.amount_currency
 
           put :update, params: { id: account.id, account:
-            { amount: '123', amount_currency: 'ABC'} }
+            { amount: '123', amount_currency: 'ABC' } }
 
           assigns(:account).reload
 

@@ -64,8 +64,8 @@ group :development, :test do
   gem 'selenium-webdriver'
   # gem "capybara-webkit"
   # gem 'geckodriver-helper'
+  gem 'phantomjs', require: 'phantomjs/poltergeist'
   gem 'poltergeist'
-  gem 'phantomjs', :require => 'phantomjs/poltergeist'
 
   gem 'factory_bot'
   gem 'guard-rspec', require: false
@@ -80,9 +80,9 @@ group :test do
   gem 'faker'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
-  gem 'webmock'
-  gem 'vcr'
   gem 'timecop'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :development do

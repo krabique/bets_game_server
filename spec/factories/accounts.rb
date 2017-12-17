@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :account do
-    amount            10000
+    amount            10_000
     amount_currency   'EUR'
     user
 

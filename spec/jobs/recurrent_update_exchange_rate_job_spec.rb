@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 # require 'timecop'
 
 RSpec.describe RecurrentUpdateExchangeRateJob, type: :job do
-  describe "#perform_later" do
+  describe '#perform_later' do
     it 'enqueues the job' do
       ActiveJob::Base.queue_adapter = :test
-      expect {
+      expect do
         RecurrentUpdateExchangeRateJob.perform_later
-      }.to have_enqueued_job
+      end.to have_enqueued_job
     end
 
     # it 'enqueues itself to execute at the next whole hour' do

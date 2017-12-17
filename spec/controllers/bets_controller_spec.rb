@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe BetsController, type: :controller do
@@ -18,15 +20,15 @@ RSpec.describe BetsController, type: :controller do
       it 'saves the new bet in the database' do
         expect do
           post :create,
-            params: { bet: attributes_for(:bet) },
-            format: :js
+               params: { bet: attributes_for(:bet) },
+               format: :js
         end.to change(Bet, :count).by(1)
       end
 
       it "shows a flash with the bet's info" do
         post :create,
-          params: { bet: attributes_for(:bet) },
-          format: :js
+             params: { bet: attributes_for(:bet) },
+             format: :js
         expect(flash.now[:notice]).to match(/You've made a bet of/)
       end
 
@@ -39,8 +41,8 @@ RSpec.describe BetsController, type: :controller do
 
           expect do
             post :create,
-              params: { bet: attributes_for(:bet) },
-              format: :js
+                 params: { bet: attributes_for(:bet) },
+                 format: :js
           end.to_not change(Account, :count)
           expect(flash.now[:alert]).to match(
             /You are banned! You cheater, you!/
@@ -51,8 +53,9 @@ RSpec.describe BetsController, type: :controller do
            'allowed bet at the moment if it exceeds it (in EUR)' do
           expect do
             post :create,
-              params: { bet: { bet_amount: 1.01, bet_amount_currency: 'EUR' } },
-              format: :js
+                 params:
+                  { bet: { bet_amount: 1.01, bet_amount_currency: 'EUR' } },
+                 format: :js
           end.to_not change(Account, :count)
           expect(flash.now[:alert]).to match(
             /Your bet exceeds the maximum bet of/
@@ -65,8 +68,8 @@ RSpec.describe BetsController, type: :controller do
 
           expect do
             post :create,
-              params: { bet: { bet_amount: 1, bet_amount_currency: 'USD' } },
-              format: :js
+                 params: { bet: { bet_amount: 1, bet_amount_currency: 'USD' } },
+                 format: :js
           end.to_not change(Account, :count)
           expect(flash.now[:alert]).to match(
             /Insufficient funds/
@@ -77,12 +80,11 @@ RSpec.describe BetsController, type: :controller do
 
     context 'with invalid attributes' do
       context 'does not save the new bet in the database' do
-
         it 'and shows a flash about invalid amount' do
           expect do
             post :create,
-              params: { bet: attributes_for(:invalid_bet_amount) },
-              format: :js
+                 params: { bet: attributes_for(:invalid_bet_amount) },
+                 format: :js
           end.to_not change(Account, :count)
           expect(flash.now[:alert]).to match(
             /Can't bet zero! Show me what you've got, playa'!/
@@ -92,27 +94,26 @@ RSpec.describe BetsController, type: :controller do
         it 'and shows a flash about invalid currency' do
           expect do
             post :create,
-              params: { bet: attributes_for(:invalid_bet_currency) },
-              format: :js
+                 params: { bet: attributes_for(:invalid_bet_currency) },
+                 format: :js
           end.to_not change(Account, :count)
           expect(flash.now[:alert]).to match(
             /You have to choose a valid currency!/
           )
         end
 
-        it "and shows a flash about user not having a specific currency " \
+        it 'and shows a flash about user not having a specific currency ' \
            "account when user actually doesn't have an account with such a " \
-           "currency" do
+           'currency' do
           expect do
             post :create,
-              params: { bet: { bet_amount: 1, bet_amount_currency: 'USD' } },
-              format: :js
+                 params: { bet: { bet_amount: 1, bet_amount_currency: 'USD' } },
+                 format: :js
           end.to_not change(Account, :count)
           expect(flash.now[:alert]).to match(
             /You don't have a USD account./
           )
         end
-
       end
 
       # it 're-renders the :new template' do
@@ -148,5 +149,4 @@ RSpec.describe BetsController, type: :controller do
     #   end
     # end
   end
-
 end

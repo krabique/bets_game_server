@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.feature "SignUpsAndLogIns", type: :feature do
+RSpec.feature 'SignUpsAndLogIns', type: :feature do
   scenario 'a visitor can sign up' do
     expect do
       visit '/users/sign_up'
@@ -17,7 +19,7 @@ RSpec.feature "SignUpsAndLogIns", type: :feature do
 
   scenario 'a visitor can log in' do
     email = 'names@namie.com'
-    password  = 'abcd1234'
+    password = 'abcd1234'
     User.create(email: email, password: password)
 
     visit '/users/sign_in'
