@@ -75,7 +75,8 @@ class BetsController < ApplicationController
 
   def calculate_bet
     @currency = params[:bet][:bet_amount_currency]
-    raise Money::Currency::UnknownCurrency if @currency.empty?
+    raise Money::Currency::UnknownCurrency unless
+      all_currencies.include?(@currency)
 
     @multiplier = random_multiplier
     @bet_amount = params[:bet][:bet_amount].to_money(@currency)
