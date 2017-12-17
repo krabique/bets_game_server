@@ -107,9 +107,12 @@ RSpec.configure do |config|
   # config.filter_run_when_matching :focus
 
   config.include ControllerHelpers, type: :controller
-  Warden.test_mode!
+  # Warden.test_mode!
 
-  config.after do
-    Warden.test_reset!
-  end
+  # config.after do
+  #   Warden.test_reset!
+  # end
+
+  require 'capybara/poltergeist'
+  Capybara.javascript_driver = :poltergeist
 end
