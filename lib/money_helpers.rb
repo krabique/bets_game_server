@@ -15,4 +15,9 @@ module MoneyHelpers
   def exchange_rates_cache
     "#{Rails.root}/tmp/exchange_rates.xml"
   end
+
+  def update_exchange_rates
+    bank.save_rates(exchange_rates_cache)
+    bank.update_rates(exchange_rates_cache)
+  end
 end

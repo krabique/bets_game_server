@@ -16,7 +16,6 @@ class RecurrentUpdateExchangeRateJob < ApplicationJob
   end
 
   def perform
-    bank.save_rates(exchange_rates_cache)
-    bank.update_rates(exchange_rates_cache)
+    update_exchange_rates
   end
 end
