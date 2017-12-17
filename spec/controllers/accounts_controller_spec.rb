@@ -4,7 +4,7 @@ RSpec.describe AccountsController, type: :controller do
   let(:user) { create(:user) }
 
   before(:each) do
-    login_with user
+    sign_in user
   end
 
   describe 'GET #new' do

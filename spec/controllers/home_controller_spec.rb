@@ -15,7 +15,7 @@ RSpec.describe HomeController, type: :controller do
       let(:user) { create(:user) }
 
       before(:each) do
-        login_with user
+        sign_in user
         get :index
       end
 
@@ -28,13 +28,13 @@ RSpec.describe HomeController, type: :controller do
       end
 
       it "should set @bets_log to current user's last 5 bets descending" do
-        5.times { create(:bet) }
+        5.times { create(:bet_complete) }
 
         expect(assigns(:bets_log)).to eq user.bets.last(5).reverse
       end
 
       it "should set @top_wins to 5 top wins of all time" do
-        5.times { create(:bet) }
+        5.times { create(:bet_complete) }
 
         expect(assigns(:top_wins)).to eq(
           Bet.order('win_amount_eur_cents DESC').limit(5).includes(:user)
