@@ -1,9 +1,8 @@
-[![Build Status](https://travis-ci.org/krabique/bets_game_server.svg?branch=master)](https://travis-ci.org/krabique/bets_game_server) [![Maintainability](https://api.codeclimate.com/v1/badges/f9794897691871c5c3e9/maintainability)](https://codeclimate.com/github/krabique/bets_game_server/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/f9794897691871c5c3e9/test_coverage)](https://codeclimate.com/github/krabique/bets_game_server/test_coverage)
-
-
 ![make a bet!](https://raw.githubusercontent.com/krabique/bets_game_server/master/bet-now.jpg "make a bet!")
 
-# Game Server
+[![Build Status](https://travis-ci.org/krabique/bets_game_server.svg?branch=master)](https://travis-ci.org/krabique/bets_game_server) [![Maintainability](https://api.codeclimate.com/v1/badges/f9794897691871c5c3e9/maintainability)](https://codeclimate.com/github/krabique/bets_game_server/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/f9794897691871c5c3e9/test_coverage)](https://codeclimate.com/github/krabique/bets_game_server/test_coverage)
+
+# Bets Game Server
 
 Satisfy your playa' passion with a bit of betting. Come and loose all of your... I mean, Come and win a fortune at our uber-duper-hydro-nano-mega Betting App! You lucky dog!
 
