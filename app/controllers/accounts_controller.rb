@@ -27,7 +27,7 @@ class AccountsController < ApplicationController
 
   def update
     @account = Account.find(params[:id])
-    if @account.update(account_params)
+    if @account.user == current_user && @account.update(account_params)
       redirect_to root_path, notice: 'Account was successfully updated.'
     else
       render :edit

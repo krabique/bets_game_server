@@ -62,9 +62,13 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  # gem "capybara-webkit"
+  # gem 'geckodriver-helper'
+  gem 'poltergeist'
+  gem 'phantomjs', :require => 'phantomjs/poltergeist'
 
   gem 'factory_bot'
-  gem 'guard-rspec'
+  gem 'guard-rspec', require: false
   gem 'rails-controller-testing'
   gem 'rspec-rails'
   gem 'rubocop'
@@ -74,9 +78,11 @@ end
 group :test do
   gem 'database_cleaner'
   gem 'faker'
-  gem 'shoulda-matchers', require: false
+  gem 'shoulda-matchers'
   gem 'simplecov', require: false
   gem 'webmock'
+  gem 'vcr'
+  gem 'timecop'
 end
 
 group :development do

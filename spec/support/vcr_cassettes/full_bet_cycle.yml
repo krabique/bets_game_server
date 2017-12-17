@@ -1,0 +1,93 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://api.random.org/json-rpc/1/invoke
+    body:
+      encoding: UTF-8
+      string: '{"jsonrpc":"2.0","method":"generateIntegers","params":{"apiKey":"88fba67f-eca3-49f0-b285-78ef3028edd3","n":1,"min":0,"max":2,"replacement":true,"base":10},"id":24780}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 17 Dec 2017 17:23:07 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=da0061d798d64affbc05a2af76bf39bc91513531386; expires=Mon, 17-Dec-18
+        17:23:06 GMT; path=/; domain=.random.org; HttpOnly
+      X-Powered-By:
+      - PHP/5.4.45-0+deb7u11
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3ceb917d3e316950-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '{"jsonrpc":"2.0","result":{"random":{"data":[2],"completionTime":"2017-12-17
+        17:23:06Z"},"bitsUsed":2,"bitsLeft":249495,"requestsLeft":898,"advisoryDelay":1150},"id":24780}'
+    http_version: 
+  recorded_at: Sun, 17 Dec 2017 17:23:07 GMT
+- request:
+    method: post
+    uri: https://api.random.org/json-rpc/1/invoke
+    body:
+      encoding: UTF-8
+      string: '{"jsonrpc":"2.0","method":"generateIntegers","params":{"apiKey":"88fba67f-eca3-49f0-b285-78ef3028edd3","n":1,"min":0,"max":500,"replacement":true,"base":10},"id":24780}'
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Sun, 17 Dec 2017 17:23:07 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Set-Cookie:
+      - __cfduid=d566339ad8db6d7fff0507a9b694ed57f1513531387; expires=Mon, 17-Dec-18
+        17:23:07 GMT; path=/; domain=.random.org; HttpOnly
+      X-Powered-By:
+      - PHP/5.4.45-0+deb7u11
+      Access-Control-Allow-Origin:
+      - "*"
+      Access-Control-Allow-Headers:
+      - Origin, X-Requested-With, Content-Type, Accept
+      Server:
+      - cloudflare-nginx
+      Cf-Ray:
+      - 3ceb91814cab3c23-CDG
+    body:
+      encoding: ASCII-8BIT
+      string: '{"jsonrpc":"2.0","result":{"random":{"data":[366],"completionTime":"2017-12-17
+        17:23:07Z"},"bitsUsed":9,"bitsLeft":249486,"requestsLeft":897,"advisoryDelay":1150},"id":24780}'
+    http_version: 
+  recorded_at: Sun, 17 Dec 2017 17:23:07 GMT
+recorded_with: VCR 4.0.0

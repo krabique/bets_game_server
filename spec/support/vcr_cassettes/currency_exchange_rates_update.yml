@@ -1,0 +1,61 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - Apache
+      Last-Modified:
+      - Fri, 15 Dec 2017 14:55:09 GMT
+      Etag:
+      - '"658-560622fd36d40"'
+      Content-Type:
+      - text/xml
+      Vary:
+      - Accept-Encoding
+      Date:
+      - Sun, 17 Dec 2017 15:03:36 GMT
+      Content-Length:
+      - '1624'
+      Connection:
+      - keep-alive
+    body:
+      encoding: UTF-8
+      string: "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<gesmes:Envelope xmlns:gesmes=\"http://www.gesmes.org/xml/2002-08-01\"
+        xmlns=\"http://www.ecb.int/vocabulary/2002-08-01/eurofxref\">\n\t<gesmes:subject>Reference
+        rates</gesmes:subject>\n\t<gesmes:Sender>\n\t\t<gesmes:name>European Central
+        Bank</gesmes:name>\n\t</gesmes:Sender>\n\t<Cube>\n\t\t<Cube time='2017-12-15'>\n\t\t\t<Cube
+        currency='USD' rate='1.1806'/>\n\t\t\t<Cube currency='JPY' rate='132.45'/>\n\t\t\t<Cube
+        currency='BGN' rate='1.9558'/>\n\t\t\t<Cube currency='CZK' rate='25.678'/>\n\t\t\t<Cube
+        currency='DKK' rate='7.4443'/>\n\t\t\t<Cube currency='GBP' rate='0.88253'/>\n\t\t\t<Cube
+        currency='HUF' rate='313.43'/>\n\t\t\t<Cube currency='PLN' rate='4.2167'/>\n\t\t\t<Cube
+        currency='RON' rate='4.6332'/>\n\t\t\t<Cube currency='SEK' rate='9.9583'/>\n\t\t\t<Cube
+        currency='CHF' rate='1.1669'/>\n\t\t\t<Cube currency='NOK' rate='9.7828'/>\n\t\t\t<Cube
+        currency='HRK' rate='7.5465'/>\n\t\t\t<Cube currency='RUB' rate='69.5043'/>\n\t\t\t<Cube
+        currency='TRY' rate='4.5603'/>\n\t\t\t<Cube currency='AUD' rate='1.5382'/>\n\t\t\t<Cube
+        currency='BRL' rate='3.9171'/>\n\t\t\t<Cube currency='CAD' rate='1.5070'/>\n\t\t\t<Cube
+        currency='CNY' rate='7.8022'/>\n\t\t\t<Cube currency='HKD' rate='9.2223'/>\n\t\t\t<Cube
+        currency='IDR' rate='16029.01'/>\n\t\t\t<Cube currency='ILS' rate='4.1634'/>\n\t\t\t<Cube
+        currency='INR' rate='75.6085'/>\n\t\t\t<Cube currency='KRW' rate='1284.73'/>\n\t\t\t<Cube
+        currency='MXN' rate='22.6281'/>\n\t\t\t<Cube currency='MYR' rate='4.8163'/>\n\t\t\t<Cube
+        currency='NZD' rate='1.6803'/>\n\t\t\t<Cube currency='PHP' rate='59.528'/>\n\t\t\t<Cube
+        currency='SGD' rate='1.5897'/>\n\t\t\t<Cube currency='THB' rate='38.375'/>\n\t\t\t<Cube
+        currency='ZAR' rate='15.7809'/>\n\t\t</Cube>\n\t</Cube>\n</gesmes:Envelope>"
+    http_version: 
+  recorded_at: Sun, 17 Dec 2017 15:03:36 GMT
+recorded_with: VCR 4.0.0

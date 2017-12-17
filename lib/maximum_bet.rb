@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module MaximumBet
+  include MoneyHelpers
+
   private
 
   def maximum_bet_eur
