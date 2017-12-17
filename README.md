@@ -12,7 +12,7 @@ Live preview is available at https://polar-dawn-15904.herokuapp.com/ (you won't 
 
 - no page reloading (auto-updates for accounts, top chart and last bets)
 - loading ECB currency exchange rates every hour
-- maximum bet (1/2 of the service's profit for past 24 hours + minimal bet of 1 EUR, or just 1 EUR if there is no profit
+- maximum bet (1/2 of the service's profit for past 24 hours + minimal bet of 1 EUR, or just 1 EUR if there is no profit)
 - top winners chart in EUR (with any currency being exchanged into EUR for the chart)
 - bets history (showing last 5 bets)
 - etc
