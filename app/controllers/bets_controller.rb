@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class BetsController < ApplicationController
+  # find us in lib/
   include MoneyHelpers
   include BetParams
   include MaximumBet
