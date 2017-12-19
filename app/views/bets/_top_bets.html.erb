@@ -1,5 +1,10 @@
 <div id="top_bets">
   <h3>Top Wins!</h3>
+  <h6>
+    EUR 1 = USD <%= @exchange_rates[:usd] %>
+    as of <%= @exchange_rates[:updated_at] %>
+    according to <%= @exchange_rates[:bank_name] %>
+  </h6>
   <table class="table">
     <thead>
       <th>#</th>
