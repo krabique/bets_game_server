@@ -115,6 +115,6 @@ RSpec.configure do |config|
   #   Warden.test_reset!
   # end
 
-  require 'capybara/poltergeist'
-  Capybara.javascript_driver = :poltergeist
+  # require 'capybara/poltergeist'
+  # Capybara.javascript_driver = :poltergeist
 end

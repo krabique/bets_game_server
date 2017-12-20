@@ -64,8 +64,8 @@ group :development, :test do
   gem 'selenium-webdriver'
   # gem "capybara-webkit"
   # gem 'geckodriver-helper'
-  gem 'phantomjs', require: 'phantomjs/poltergeist'
-  gem 'poltergeist'
+  # gem 'phantomjs', require: 'phantomjs/poltergeist'
+  # gem 'poltergeist'
 
   gem 'factory_bot'
   gem 'guard-rspec', require: false
