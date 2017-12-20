@@ -20,4 +20,12 @@ module MoneyHelpers
     bank.save_rates(exchange_rates_cache)
     bank.update_rates(exchange_rates_cache)
   end
+
+  def exchange_rates
+    {
+      bank_name: bank.class,
+      updated_at: bank.last_updated,
+      usd: bank.get_rate('EUR', 'USD')
+    }
+  end
 end

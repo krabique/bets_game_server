@@ -8,10 +8,6 @@ class HomeController < ApplicationController
     @accounts = current_user.accounts
     @bets_log = current_user.bets.last(5).reverse
     @top_wins = Bet.order('win_amount_eur_cents DESC').limit(5).includes(:user)
-    @exchange_rates = {
-      bank_name: bank.class,
-      updated_at: bank.last_updated,
-      usd: bank.get_rate('EUR', 'USD')
-    }
+    @exchange_rates = exchange_rates
   end
 end

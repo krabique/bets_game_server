@@ -13,6 +13,7 @@ class BetsController < ApplicationController
 
     @accounts = current_user.accounts
     @top_wins = Bet.order('win_amount_eur_cents DESC').limit(5).includes(:user)
+    @exchange_rates = exchange_rates
   end
 
   private
