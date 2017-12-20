@@ -19,7 +19,7 @@ class RecurrentUpdateExchangeRateJob < ApplicationJob
     update_exchange_rates
     raise StandardError
   rescue => e
-    logger.fatal "RecurrentUpdateExchangeRateJob raised an exception - " \
+    logger.fatal 'RecurrentUpdateExchangeRateJob raised an exception - ' \
                  "#{e}: \n" \
                  "#{e.backtrace.join("\n")}"
   end
