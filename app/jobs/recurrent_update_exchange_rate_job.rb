@@ -17,7 +17,6 @@ class RecurrentUpdateExchangeRateJob < ApplicationJob
 
   def perform
     update_exchange_rates
-    raise StandardError
   rescue => e
     logger.fatal 'RecurrentUpdateExchangeRateJob raised an exception - ' \
                  "#{e}: \n" \
