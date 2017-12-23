@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'support/bank_helper'
 
-RSpec.describe MoneyHelpers do
+RSpec.describe MoneyHelper do
   it 'downloads the latest currency exchange rates' do
     path_to_file = Rails.root.join('tmp', 'exchange_rates.xml').to_s
     File.delete(path_to_file) if File.exist?(path_to_file)

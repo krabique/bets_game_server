@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module MaximumBet
-  include MoneyHelpers
+  include MoneyHelper
 
   private
 
@@ -16,7 +16,7 @@ module MaximumBet
 
     profit = income - outlays
     min_bet = Money.new(100, 'EUR')
-    @max_bet = profit <= 0 ? min_bet : (profit / 2) + min_bet
+    profit <= 0 ? min_bet : (profit / 2) + min_bet
   end
 
   def calculate_income(last_days_lost_bets)

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class HomeController < ApplicationController
-  include MoneyHelpers
+  include MoneyHelper
 
   def index
     @bet = Bet.new

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Bet, type: :model do
-  include MoneyHelpers
+  include MoneyHelper
 
   context 'associations' do
     it { should belong_to(:account) }

@@ -6,7 +6,7 @@ RSpec.describe BetsController, type: :controller do
   let(:user) { create(:user) }
 
   before(:each) do
-    allow_any_instance_of(BetsController).to(
+    allow_any_instance_of(BetProcessor).to(
       receive(:random_multiplier).and_return(2)
     )
 
@@ -35,7 +35,7 @@ RSpec.describe BetsController, type: :controller do
       context 'does not save the new bet in the database' do
         it 'and shows a flash about user being banned if ' \
            'randomizer returns 0' do
-          allow_any_instance_of(BetsController).to(
+          allow_any_instance_of(BetProcessor).to(
             receive(:random_multiplier).and_return(0)
           )
 

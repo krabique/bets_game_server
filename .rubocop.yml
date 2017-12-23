@@ -8,7 +8,7 @@ AllCops:
 Metrics/AbcSize:
   Exclude:
     - db/**/*
-    - app/controllers/bets_controller.rb
+    - app/services/bet_processor.rb
     - lib/bet_params.rb
     - app/controllers/accounts_controller.rb
     - lib/maximum_bet.rb
@@ -55,3 +55,7 @@ Layout/AlignHash:
 Layout/EmptyLinesAroundArguments:
   Exclude:
     - spec/features/sign_up_and_log_in_spec.rb
+
+Style/RescueStandardError:
+  Exclude:
+    - app/jobs/recurrent_update_exchange_rate_job.rb
