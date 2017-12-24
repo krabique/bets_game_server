@@ -23,7 +23,8 @@ Live preview is available at https://polar-dawn-15904.herokuapp.com/ (you won't 
 ## TO DO
 
 - feature specs for JS (I was unsuccessful at configuring any available modern driver in headless mode, and poltergeist is too dated as of now and won't support ES6)
-- move the bets validations logic from controller to model (rly, pls)
+- ~~move the bets validations logic from controller to model (rly, pls)~~
+- now optimise that logic, lol
 - somehow test the update currency exchange rates recurrent job enqueueing itself (move the callback logic to a separate file and test just that?)
 - rebuild the front-end using React or smt (as Rails seem way too stateless for such an app)
 
